@@ -54,7 +54,7 @@ def get_routes(app):
     else:  # unexpected changes
         raise RuntimeError('get_routes cannot find routes')
     for spec in handlers:
-        handler = spec.handler_class
+        handler = spec.target
         doc_methods = list(handler.SUPPORTED_METHODS)
         if 'HEAD' in doc_methods:
             doc_methods.remove('HEAD')
