@@ -65,7 +65,16 @@ def get_routes(app):
             maybe_method = getattr(handler, method.lower(), None)
             if (inspect.isfunction(maybe_method) or
                     inspect.ismethod(maybe_method)):
-                yield method.lower(), spec.regex.pattern, handler
+
+                reg = None
+
+                if hasattr(spec, 'regex'):
+                    reg = spec.regex.pattern
+
+                elif hasattr(spec, 'matcher'):
+                    reg = spec.matcher.regex.pattern
+
+                yield method.lower(), reg, handler
 
 
 def normalize_path(path):
